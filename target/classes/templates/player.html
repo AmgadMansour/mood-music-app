@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Music Player</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Include Resource Stylesheets -->
+    <!--<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/foundation.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}"/>
+
+
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/foundation.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/amplitude.js}"></script>
+    <script type="text/javascript" th:src="@{/js/functions.js}"></script>
+
+</head>
+<body>
+
+
+<div class="grid-x" id="blue-playlist-container">
+    <div class="large-10 medium-12 small-11 large-centered medium-centered small-centered cell" id="amplitude-player">
+        <div class="grid-x">
+            <div class="large-6 medium-6 small-12 cell" id="amplitude-left">
+                <img amplitude-song-info="cover_art_url" amplitude-main-song-info="true"/>
+                <div id="player-left-bottom">
+                    <div id="time-container">
+				        <span class="current-time">
+				          <span class="amplitude-current-minutes" amplitude-main-current-minutes="true"></span>:<span class="amplitude-current-seconds" amplitude-main-current-seconds="true"></span>
+				        </span>
+                        <div id="progress-container">
+                            <input type="range" class="amplitude-song-slider" amplitude-main-song-slider="true"/>
+                            <progress id="song-played-progress" class="amplitude-song-played-progress" amplitude-main-song-played-progress="true"></progress>
+                            <progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
+                        </div>
+                        <span class="duration">
+				          <span class="amplitude-duration-minutes" amplitude-main-duration-minutes="true"></span>:<span class="amplitude-duration-seconds" amplitude-main-duration-seconds="true"></span>
+				        </span>
+                    </div>
+
+                    <div id="control-container">
+                        <div id="repeat-container">
+                            <div class="amplitude-repeat" id="repeat"></div>
+                            <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+                        </div>
+
+                        <div id="central-control-container">
+                            <div id="central-controls">
+                                <div class="amplitude-prev" id="previous"></div>
+                                <div class="amplitude-play-pause" amplitude-main-play-pause="true" id="play-pause"></div>
+                                <div class="amplitude-next" id="next"></div>
+                            </div>
+                        </div>
+
+                        <div id="volume-container">
+                            <div class="volume-controls">
+                                <div class="amplitude-mute amplitude-not-muted"></div>
+                                <input type="range" class="amplitude-volume-slider"/>
+                                <div class="ms-range-fix"></div>
+                            </div>
+                            <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
+                        </div>
+                    </div>
+
+
+
+                    <div id="meta-container">
+                        <span amplitude-song-info="name" amplitude-main-song-info="true" class="song-name"></span>
+
+                        <div class="song-artist-album">
+                            <span amplitude-song-info="artist" amplitude-main-song-info="true"></span>
+                            <span amplitude-song-info="album" amplitude-main-song-info="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 id="emheader" th:text="'Feeling ' + ${emotion} + '?'"></h1>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" th:inline="javascript">
+
+    var emm = [[${emotion}]]; // inline is used to pass the emotion parameter form Thymleaf to JS
+    if(emm=="Happy" || emm == "Neutral") { // play happy music
+        var playlist = [
+            {
+                "name": "Happy",
+                "artist": "Pharrell Williams",
+                "album": "Girl",
+                "url": "/music/happy.mp3",
+                "cover_art_url": "/img/album-art/happy.jpg"
+            },
+            {
+                "name": "Sky Full Of Stars",
+                "artist": "Coldplay",
+                "album": "Ghost Stories",
+                "url": "/music/sky.mp3",
+                "cover_art_url": "/img/album-art/sky.jpg"
+            },
+            {
+                "name": "Happy Song",
+                "artist": "Alex The Astronaut",
+                "album": "Single Song",
+                "url": "/music/happy3.mp3",
+                "cover_art_url": "/img/album-art/happy3.jpg"
+            }
+
+        ];
+    }
+    else if(emm=="Sad"){  // play sad music
+        var playlist = [
+            {
+                "name": "Scientist",
+                "artist": "Coldplay",
+                "album": "A Rush Of Blood To The Head",
+                "url": "/music/scientist.mp3",
+                "cover_art_url": "/img/album-art/scientist.jpg"
+            },
+            {
+                "name": "Video Games",
+                "artist": "Lana Del Rey",
+                "album": "Born To Die",
+                "url": "/music/videogames.mp3",
+                "cover_art_url": "/img/album-art/videogames.jpg"
+            },
+            {
+                "name": "Too Good at Goddbyes",
+                "artist": "Sam Smith",
+                "album": "Single Song",
+                "url": "/music/sad3.mp3",
+                "cover_art_url": "/img/album-art/sad3.jpg"
+            }
+        ];
+    }
+    else if(emm=="Angry"){ // play calming music
+            var playlist = [
+                {
+                    "name": "Somewhere Over The Rainbow",
+                    "artist": "Israel IZ",
+                    "album": "Single Song",
+                    "url": "/music/calm2.mp3",
+                    "cover_art_url": "/img/album-art/calm2.jpg"
+                },
+                {
+                    "name": "Please Dont",
+                    "artist": "Mxmtoon",
+                    "album": "Single Song",
+                    "url": "/music/calm1.mp3",
+                    "cover_art_url": "/img/album-art/calm1.jpg"
+                },
+                {
+                    "name": "Please Dont",
+                    "artist": "Mxmtoon",
+                    "album": "Single Song",
+                    "url": "/music/calm3.mp3",
+                    "cover_art_url": "/img/album-art/calm3.jpg"
+                }
+
+            ];
+
+    }
+
+
+
+
+
+    // Amplitude JS library takes the songs input in JSON format
+
+    Amplitude.init({
+
+        "songs": playlist
+    });
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

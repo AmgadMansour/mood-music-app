@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- include css in the header -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cam.css}"/>
+
+    <title>Home</title>
+</head>
+<body>
+
+    <div class="container">
+        <video autoplay="true" id="videoElement"> </video>
+        <canvas id="canvas" width="380" height="280"></canvas>
+
+        <div id="buttongroup">
+        <button id="snap" onclick="snap()">Snap Photo</button>
+        <form id="form" action="/player" method="post">
+            <button type="submit" id="play">
+                <i class="button">Songs</i>
+            </button>
+        </form>
+        </div>
+    </div>
+
+    <!-- include javascript in the footer -->
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/cam.js}"></script>
+
+</body>
+</html>
